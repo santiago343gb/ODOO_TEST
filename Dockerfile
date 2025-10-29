@@ -1,5 +1,5 @@
 # Imagen base Odoo 17
-FROM odoo:17
+FROM  odoo:17
 # (Opcional) módulos propios
 COPY ./extra-addons /mnt/extra-addons
 # Puerto HTTP de Odoo
@@ -24,3 +24,4 @@ odoo --db_host=$PGHOST --db_port=$PGPORT \
 --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
 --db-filter=$PGDATABASE \
 --dev=all"]
+
