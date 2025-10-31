@@ -22,7 +22,6 @@ En esta guía aprenderás a crear un repositorio GitHub con los archivos necesar
 4. Marca la casilla **Add a README file**.  
 5. Haz clic en **Create repository**.  
 
-Tu URL de repositorio será algo como: `https://github.com/tu-usuario/odoo_render_demo`.
 
 ## 4. Estructura de archivos del proyecto
 
@@ -68,3 +67,4 @@ odoo --db_host=$PGHOST --db_port=$PGPORT \
 --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
 --db-filter=$PGDATABASE \
 --dev=all"]
+
