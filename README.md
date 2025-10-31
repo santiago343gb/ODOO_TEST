@@ -2,14 +2,14 @@
 
 Este repositorio sirve como guía para instalar Odoo 17 desde cero en Render usando GitHub. Está pensado para personas que nunca instalaron Odoo ni usaron Render.
 
-## 2. Requisitos
+## 1. Requisitos
 
 - Cuenta en GitHub.  
 - Cuenta en Render.  
 - Conexión a Internet y navegador web.  
 - No se requieren conocimientos previos de programación.
 
-## 3. Crear el repositorio en GitHub
+## 2. Crear el repositorio en GitHub
 
 1. Entra en tu cuenta de GitHub.  
 2. Haz clic en **New Repository**.  
@@ -18,7 +18,7 @@ Este repositorio sirve como guía para instalar Odoo 17 desde cero en Render usa
 5. Haz clic en **Create repository**.  
 
 
-## 4. Estructura de archivos del proyecto
+## 3. Estructura de archivos del proyecto
 
 odoo_render_demo/
 ├── Dockerfile
@@ -62,5 +62,6 @@ odoo --db_host=$PGHOST --db_port=$PGPORT \
 --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
 --db-filter=$PGDATABASE \
 --dev=all"]
+
 
 
