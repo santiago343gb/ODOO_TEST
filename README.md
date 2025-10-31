@@ -2,11 +2,6 @@
 
 Este repositorio sirve como guía para instalar Odoo 17 desde cero en Render usando GitHub. Está pensado para personas que nunca instalaron Odoo ni usaron Render.
 
-## 1. Qué es Odoo
-
-Odoo es un sistema ERP (Enterprise Resource Planning) de código abierto: una aplicación web que permite gestionar empresas (ventas, compras, inventario, facturación, etc.).  
-En esta guía aprenderás a crear un repositorio GitHub con los archivos necesarios, subir tu proyecto Odoo con un módulo personalizado, conectarlo a una base de datos PostgreSQL, desplegarlo en Render y ver Odoo funcionando en Internet.
-
 ## 2. Requisitos
 
 - Cuenta en GitHub.  
@@ -67,4 +62,5 @@ odoo --db_host=$PGHOST --db_port=$PGPORT \
 --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
 --db-filter=$PGDATABASE \
 --dev=all"]
+
 
