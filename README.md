@@ -19,13 +19,13 @@ Este repositorio sirve como guía para instalar Odoo 17 desde cero en Render usa
 ## 3. Estructura de archivos del proyecto
 
 odoo_render_demo/
-├── Dockerfile
-├── README.md
-└── extra-addons/
-└── dummy_module/
-├── init.py
-├── manifest.py
-└── .gitkeep
+ Dockerfile
+README.md
+└─extra-addons/
+└─dummy_module/
+├─init.py
+├─manifest.py
+└- .gitkeep
 
 ### Módulo de ejemplo `dummy_module`
 
@@ -60,6 +60,7 @@ odoo --db_host=$PGHOST --db_port=$PGPORT \
 --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
 --db-filter=$PGDATABASE \
 --dev=all"]
+
 
 
 
