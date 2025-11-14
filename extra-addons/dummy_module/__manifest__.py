@@ -1,13 +1,10 @@
-nombreAlumno = "Carlos"
-edadAlumno = 20
-
-c
-print("Nombre del alumno:", nombreAlumno)
-print("Edad del alumno:", edadAlumno)
-
-
-nombrePersona = input("Ingresa tu nombre: ")
-edadPersona = input("Ingresa tu edad: ")
-
-print("Tu nombre es:", nombrePersona)
-print("Tu edad es:", edadPersona)
+{
+    'name': 'Dummy Module',
+    'version': '1.0',
+    'summary': 'Empty test module',
+    'author': 'Santiago perez',
+    'depends': [],
+    'data': [],
+    'installable': True,
+    'application': False,
+}
