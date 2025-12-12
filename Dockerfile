@@ -1,31 +1,55 @@
 # Imagen base Odoo 17
 FROM odoo:17
 
-# (Opcional) módulos propios
+# Copiar módulos personalizados
 COPY ./extra-addons /mnt/extra-addons
 
-# Puerto HTTP de Odoo
+# Puerto HTTP
 EXPOSE 8069
 
-# Puerto por defecto de PostgreSQL
-ENV PGPORT=5432
+# Render nos da la variable DATABASE_URL con este formato:
+# postgresql://user:password@host:port/dbname
+# Odoo necesita los parámetros separados. Los extraemos con python.
+RUN pip install psycopg2-binary
 
-# 1) Inicializa la BD indicada en $PGDATABASE si está vacía (stop-after-init)
-# 2) Después arranca el servidor normalmente
-#
-# NOTA: usamos $PGDATABASE para que la inicialización vaya contra esa BD
-# y --db-filter la fije para evitar que Odoo “coja” otra por error.
-CMD ["bash","-lc", "\
-  echo '==> Initializing DB $PGDATABASE'; \
-  odoo -d $PGDATABASE -i base --without-demo=all \
-       --db_host=$PGHOST --db_port=$PGPORT \
-       --db_user=$PGUSER --db_password=$PGPASSWORD \
-       --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
-       --stop-after-init; \
-  echo '==> Starting Odoo server'; \
-  odoo --db_host=$PGHOST --db_port=$PGPORT \
-       --db_user=$PGUSER --db_password=$PGPASSWORD \
-       --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
-       --db-filter=$PGDATABASE \
-       --http-port=${PORT}"]
-
+CMD bash -c "\
+    echo '=> Parsing DATABASE_URL...' && \
+    export DB_USER=$(python3 - <<EOF
+import os, urllib.parse
+u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+print(u.username)
+EOF
+) && \
+    export DB_PASSWORD=$(python3 - <<EOF
+import os, urllib.parse
+u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+print(u.password)
+EOF
+) && \
+    export DB_HOST=$(python3 - <<EOF
+import os, urllib.parse
+u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+print(u.hostname)
+EOF
+) && \
+    export DB_PORT=$(python3 - <<EOF
+import os, urllib.parse
+u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+print(u.port)
+EOF
+) && \
+    export DB_NAME=$(python3 - <<EOF
+import os, urllib.parse
+u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+print(u.path[1:])
+EOF
+) && \
+    echo '=> Starting Odoo with external PostgreSQL...' && \
+    odoo \
+        --db_host=$DB_HOST \
+        --db_port=$DB_PORT \
+        --db_user=$DB_USER \
+        --db_password=$DB_PASSWORD \
+        --database=$DB_NAME \
+        --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons \
+        --http-port=8069"
